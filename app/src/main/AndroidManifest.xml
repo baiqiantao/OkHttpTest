@@ -18,6 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".OkHttpRecipes_Activity"/>
+        <activity android:name=".OkHttp_Activity"/>
         <activity android:name=".OkHttpUtils_Activity"/>
     </application>
 

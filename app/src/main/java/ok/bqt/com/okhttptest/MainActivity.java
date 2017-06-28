@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.FormBody;
@@ -33,10 +34,48 @@ public class MainActivity extends ListActivity {
 		String[] array = {"post方式提交键值对数据",
 				"get方式提交键值对数据",
 				"OkHttp官方Wiki之Recipes中的示例代码",
-				"OkHttp官方Wiki之Interceptors",};
+				"OkHttp官方Wiki之Interceptors",
+				""};
 		mTv = new TextView(this);// 将内容显示在TextView中
 		getListView().addFooterView(mTv);
 		setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, new ArrayList<String>(Arrays.asList(array))));
+	}
+
+	//******************************************************************************************
+
+	static class Person {
+		public String name;
+
+		public Person(String name) {
+			this.name = name;
+		}
+
+		@Override
+		public String toString() {
+			return name;
+		}
+	}
+
+	public static void test() {
+		LogUtils.i("包青天");
+		LogUtils.i(5);
+		LogUtils.i(true);
+		LogUtils.i(new Person("白乾涛"));
+
+		LogUtils.i("----------------------数组---------------------");
+		Object[] array = {"包青天", 5, true, new Person("白乾涛")};
+		LogUtils.i(array);
+
+		LogUtils.i("-----------------------集合--------------------");
+		List<Object> list = Arrays.asList(array);
+		LogUtils.i(list);
+
+		LogUtils.i("---------------------嵌套----------------------");
+		List<Object> mList = new ArrayList<Object>();
+		mList.add("包青天2");
+		mList.add(array);
+		mList.add(list);
+		LogUtils.i(mList);
 	}
 
 	@Override
@@ -53,6 +92,9 @@ public class MainActivity extends ListActivity {
 				break;
 			case 3:
 				startActivity(new Intent(this, OkHttp_Activity.class));
+				break;
+			case 4:
+				test();
 				break;
 		}
 	}

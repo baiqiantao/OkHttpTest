@@ -4,7 +4,7 @@ import android.util.Log;
 
 import java.util.Collection;
 
-public class LogUtils {
+public class L {
 	public final static boolean DEBUG = BuildConfig.DEBUG;
 	
 	public static void v(Object... message) {
@@ -71,40 +71,34 @@ public class LogUtils {
 	}
 	
 	private static String formatMessage(Object... messages) {
-		String out = objToString(messages);
-		if (out.startsWith("\n")) out = out.substring(1);//******************************************可以优化
-		if (out.endsWith("\n")) out = out.substring(0, out.length() - 1);//*************************可以优化
-		return out;
+		StringBuilder sb = new StringBuilder();
+		for (Object mobj : messages) {
+			sb.append(objToString(mobj, -1)).append("\n");
+		}
+		return sb.toString().trim();
 	}
 
 	//******************************************************************************************
-	private static String objToString(Object obj) {
-		return objToString(obj, 0);
-	}
 
 	private static String objToString(Object obj, int currentLvel) {
-		if (obj == null) return "";
+		if (obj == null) return "你妹，这是null";
 		currentLvel++;
 		StringBuilder sb = new StringBuilder();
 		if (obj instanceof String) {//字符串
-			sb.append(getSpace(currentLvel));
-			sb.append(obj);
+			sb.append(getSpace(currentLvel)).append(obj);
 		} else if (obj instanceof Object[]) {//数组
-			Object[] array = (Object[]) obj;
-			for (int i = 0; i < array.length; i++) {
-				sb.append(i)
-						.append(objToString(array[i], currentLvel));//递归
+			sb.append("数组：").append("\n");
+			for (Object mobj : (Object[]) obj) {
+				sb.append(objToString(mobj, currentLvel)).append("\n");//递归
 			}
 		} else if (obj instanceof Collection) {//集合
-			if (!sb.toString().endsWith("\n")) sb.append("\n");//************************************可以优化
+			sb.append("集合：").append("\n");
 			for (Object mobj : (Collection) obj) {
-				sb.append(objToString(mobj, currentLvel));//递归
+				sb.append(objToString(mobj, currentLvel)).append("\n");//递归
 			}
 		} else {//其他对象
-			sb.append(getSpace(currentLvel));
-			sb.append(obj.toString());
+			sb.append(getSpace(currentLvel)).append(obj.toString());
 		}
-		if (!sb.toString().endsWith("\n")) sb.append("\n");//***************************************可以优化
 		return sb.toString();
 	}
 
@@ -115,8 +109,8 @@ public class LogUtils {
 	 */
 	private static String getSpace(int level) {
 		StringBuilder sb = new StringBuilder();
-		for (int x = 2; x < level; x++) {
-			sb.append("| _ _ ");
+		for (int i = 0; i < level; i++) {
+			sb.append("|__");
 		}
 		return sb.toString();
 	}

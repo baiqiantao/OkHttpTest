@@ -57,25 +57,31 @@ public class MainActivity extends ListActivity {
 	}
 
 	public static void test() {
-		LogUtils.i("包青天");
-		LogUtils.i(5);
-		LogUtils.i(true);
-		LogUtils.i(new Person("白乾涛"));
+		L.i("包青天");
+		L.i(5);
+		L.i(true);
+		L.i(new Person("白乾涛"));
+		L.i("----------------------连续---------------------");
+		L.i("包青天", 5, true, new Person("白乾涛"));
 
-		LogUtils.i("----------------------数组---------------------");
+		L.i("----------------------数组---------------------");
 		Object[] array = {"包青天", 5, true, new Person("白乾涛")};
-		LogUtils.i(array);
+		L.i(array);
 
-		LogUtils.i("-----------------------集合--------------------");
+		L.i("-----------------------集合--------------------");
 		List<Object> list = Arrays.asList(array);
-		LogUtils.i(list);
+		L.i(list);
 
-		LogUtils.i("---------------------嵌套----------------------");
-		List<Object> mList = new ArrayList<Object>();
+		L.i("---------------------嵌套----------------------");
+		List<Object> mList = new ArrayList<>();
 		mList.add("包青天2");
+		mList.add(5);
+		mList.add(true);
+		mList.add(new Person("白乾涛"));
+
 		mList.add(array);
 		mList.add(list);
-		LogUtils.i(mList);
+		L.i(mList);
 	}
 
 	@Override
